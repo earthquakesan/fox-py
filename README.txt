@@ -1,5 +1,5 @@
 ============
-  LIMES Py
+  FOX Py
 ============
 
 FOX Py provides an interface to FOX Federated Knowledge Extraction Framework.
