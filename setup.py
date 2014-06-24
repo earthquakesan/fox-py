@@ -12,6 +12,7 @@ setup(
     description='Python bindings for FOX - Federated Knowledge Extraction Framework.',
     long_description=open('README.txt').read(),
     install_requires=[
+        'requests'
     ],
 )
 
