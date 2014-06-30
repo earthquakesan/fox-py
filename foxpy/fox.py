@@ -51,7 +51,6 @@ class Fox(object):
         """
         payload = copy.copy(self.defaultFoxParams)
         payload['input'] = text
-        print payload
         r = requests.post(self.foxOfficialApiUri, data=payload)
         resp = r.json()
         return (urllib.unquote(resp[0]['input']), 
@@ -61,4 +60,3 @@ class Fox(object):
 if __name__ == "__main__":
     fox = Fox()
     (text, output, log) = fox.recognizeText('Leipzig London Berlin Idaho')
-    print output
