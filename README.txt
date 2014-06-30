@@ -11,7 +11,8 @@ Typical usage often looks like this::
     from foxpy import FOX
 
     fox = FOX()
-    fox.recognizemydata(string)
+    text = "London Idaho Hawaii"
+    (text, output, log) = fox.recognizeText(text)
 
 Contributors
 =========

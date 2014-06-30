@@ -1,3 +1,4 @@
 v0.0.1a, 23-06-2014 -- Initial release.
 v0.0.1, 24-06-2014 -- First working version.
 v0.0.2, 26-06-2014 -- Added parameter to change NER method
+v0.0.3, 30-06-2014 -- Parameters are set according to the new FOX spec

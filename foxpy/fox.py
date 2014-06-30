@@ -34,9 +34,9 @@ class Fox(object):
             2 - NEROpenNLP
             3 - NERStanford
         """
-        self.defaultFoxParams = self.setFoxlight(foxlight)
+        self.defaultFoxParams = self._setFoxlight(foxlight)
 
-    def setFoxlight(self, foxlight, foxParams=None):
+    def _setFoxlight(self, foxlight, foxParams=None):
         if(foxParams==None):
             foxParamsNew = copy.copy(self.defaultFoxParams)
         else:
