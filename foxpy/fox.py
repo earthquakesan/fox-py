@@ -53,9 +53,9 @@ class Fox(object):
         payload['input'] = text
         r = requests.post(self.foxOfficialApiUri, data=payload)
         resp = r.json()
-        return (urllib.unquote(resp[0]['input']), 
-                urllib.unquote(resp[0]['output']), 
-                urllib.unquote(resp[0]['log']))
+        return (urllib.unquote(resp['input']), 
+                urllib.unquote(resp['output']), 
+                urllib.unquote(resp['log']))
 
 if __name__ == "__main__":
     fox = Fox()
