@@ -3,7 +3,8 @@ import copy
 import urllib
 
 class Fox(object):
-    foxOfficialApiUri = 'http://139.18.2.164:4444/api'
+    foxOfficialApiUri = 'http://fox-demo.aksw.org/api'
+    #foxOfficialApiUri = 'http://139.18.2.164:4444/api'
     foxMyApiUri = 'http://ivanermilov.aksw.org/fox/api'
     availableNER = [
             'org.aksw.fox.nertools.NERBalie', #0
@@ -22,8 +23,8 @@ class Fox(object):
                 'type': 'text', # text | url
                 'task': 'NER',
                 'output': 'JSON-LD', # JSON-LD | N3 | N-TRIPLE | RDF/{JSON | XML | XML-ABBREV} | TURTLE
-                'returnHtml': 'false', # true | false
-                'foxlight': availableNER[NEROpenNLP] 
+                'returnHtml': 'false'#, # true | false
+                #'foxlight': availableNER[NEROpenNLP]
             }
 
     def __init__(self, foxlight=NEROpenNLP):
@@ -34,7 +35,8 @@ class Fox(object):
             2 - NEROpenNLP
             3 - NERStanford
         """
-        self.defaultFoxParams = self._setFoxlight(foxlight)
+        #self.defaultFoxParams = self._setFoxlight(foxlight)
+        pass
 
     def _setFoxlight(self, foxlight, foxParams=None):
         if(foxParams==None):
@@ -53,10 +55,11 @@ class Fox(object):
         payload['input'] = text
         r = requests.post(self.foxOfficialApiUri, data=payload)
         resp = r.json()
-        return (urllib.unquote(resp['input']), 
-                urllib.unquote(resp['output']), 
+        return (urllib.unquote(resp['input']),
+                urllib.unquote(resp['output']),
                 urllib.unquote(resp['log']))
 
 if __name__ == "__main__":
     fox = Fox()
-    (text, output, log) = fox.recognizeText('Leipzig London Berlin Idaho')
+    (text, output, log) = fox.recognizeText('Country Austria')
+    print output
