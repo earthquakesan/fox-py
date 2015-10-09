@@ -54,7 +54,11 @@ class Fox(object):
         payload = copy.copy(self.defaultFoxParams)
         payload['input'] = text
         r = requests.post(self.foxOfficialApiUri, data=payload)
-        resp = r.json()
+        try:
+            resp = r.json()
+        except ValueError as e:
+            #server failed
+            resp = {'input': '', 'output': '', 'log': ''}
         return (urllib.unquote(resp['input']),
                 urllib.unquote(resp['output']),
                 urllib.unquote(resp['log']))
