@@ -1,6 +1,6 @@
 import requests
 import copy
-import urllib
+from urllib.parse import unquote
 
 class Fox(object):
     foxOfficialApiUri = 'http://fox-demo.aksw.org/api'
@@ -59,11 +59,12 @@ class Fox(object):
         except ValueError as e:
             #server failed
             resp = {'input': '', 'output': '', 'log': ''}
-        return (urllib.unquote(resp['input']),
-                urllib.unquote(resp['output']),
-                urllib.unquote(resp['log']))
+        return (unquote(resp['input']),
+                unquote(resp['output']),
+                unquote(resp['log']))
 
 if __name__ == "__main__":
     fox = Fox()
     (text, output, log) = fox.recognizeText('Country Austria')
-    print output
+    import ipdb; ipdb.set_trace()
+    print(output)
