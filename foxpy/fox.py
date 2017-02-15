@@ -56,8 +56,11 @@ class Fox(object):
         r = requests.post(self.foxOfficialApiUri, data=payload)
         try:
             resp = r.json()
+            if (not "input" in resp) or (not "output" in resp):
+                # Empty result
+                raise ValueError
         except ValueError as e:
-            #server failed
+            # server failed
             resp = {'input': '', 'output': '', 'log': ''}
         return (unquote(resp['input']),
                 unquote(resp['output']),
@@ -66,5 +69,4 @@ class Fox(object):
 if __name__ == "__main__":
     fox = Fox()
     (text, output, log) = fox.recognizeText('Country Austria')
-    import ipdb; ipdb.set_trace()
     print(output)
