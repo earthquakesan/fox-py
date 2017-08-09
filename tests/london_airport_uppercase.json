@@ -1,0 +1,7 @@
+{
+"input" : "1. London Heathrow Airport Hillingdon Greater London England United Kingdom lhr/egll 40239190 NULL 0.8%",
+"type": "text",
+"task": "ner",
+"output": "Turtle",
+"lang": "en"
+}

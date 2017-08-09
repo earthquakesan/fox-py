@@ -1,0 +1,7 @@
+{
+"input" : "1. london heathrow airport {hillingdon|greater london|england|united kingdom} lhr/egll 40239190 NULL 0.8%",
+"type": "text",
+"task": "ner",
+"output": "Turtle",
+"lang": "en"
+}

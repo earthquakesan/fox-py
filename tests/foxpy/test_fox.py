@@ -30,3 +30,8 @@ def test_annotateEntities():
     assert test_2 == "country <entity>Austria</entity> is not country <entity>Australia</entity> with <entity>George Bush</entity> and <entity>McDonalds</entity>"
     test_3 = FOX.annotateEntities("Los Angeles country Austria is not Wikipedia country Australia with George Bush and McDonalds")
     assert test_3 == "<entity>Los Angeles</entity> country <entity>Austria</entity> is not <entity>Wikipedia</entity> country <entity>Australia</entity> with <entity>George Bush</entity> and <entity>McDonalds</entity>"
+
+def test_case_london_airport():
+    test_string = "1. london heathrow airport {hillingdon|greater london|england|united kingdom} lhr/egll 40239190 NULL 0.8%"
+    annotated_string = FOX.annotateEntities(test_string)
+    import ipdb; ipdb.set_trace()
