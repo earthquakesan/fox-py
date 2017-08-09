@@ -3,16 +3,17 @@
 ============
 
 FOX Py provides an interface to FOX Federated Knowledge Extraction Framework.
-it most useful for tasks involving entity recognition inside the text corpora. 
-Typical usage often looks like this::
+it most useful for tasks involving entity recognition inside the text corpora.
+Typical usage often looks like this:
+```
+#!/usr/bin/env python
 
-    #!/usr/bin/env python
-
-    from foxpy import FOX
-
-    fox = FOX()
-    text = "London Idaho Hawaii"
-    (text, output, log) = fox.recognizeText(text)
+from foxpy import FOX
+fox = FOX()
+text = "London Idaho Hawaii"
+response = fox.recognizeText(text)
+```
+For more information refer to test cases in [tests/foxpy](tests/foxpy) folder.
 
 Contributors
 =========

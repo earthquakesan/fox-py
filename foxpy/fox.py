@@ -1,11 +1,13 @@
-import requests
 import copy
-import urllib
+import urllib.parse
+
+import requests
+
+from foxpy.utils import extractNifPhrases, insertCharacterAtPosition
 
 class Fox(object):
-    foxOfficialApiUri = 'http://fox-demo.aksw.org/api'
-    #foxOfficialApiUri = 'http://139.18.2.164:4444/api'
-    foxMyApiUri = 'http://ivanermilov.aksw.org/fox/api'
+    foxOfficialNERUri = 'http://fox.cs.uni-paderborn.de:4444/call/ner/entities'
+    foxOfficialApiUri = 'http://fox.cs.uni-paderborn.de:4444/fox'
     availableNER = [
             'org.aksw.fox.nertools.NERBalie', #0
             'org.aksw.fox.nertools.NERIllinoisExtended', #1
@@ -20,11 +22,14 @@ class Fox(object):
     NEROff = 4
     defaultFoxParams = {
                 'input': 'Leipzig is the capital of the world!',
+                'lang': 'en',
                 'type': 'text', # text | url
-                'task': 'NER',
-                'output': 'JSON-LD', # JSON-LD | N3 | N-TRIPLE | RDF/{JSON | XML | XML-ABBREV} | TURTLE
-                'returnHtml': 'false'#, # true | false
-                #'foxlight': availableNER[NEROpenNLP]
+                'task': 'ner',
+                'output': 'JSON-LD', # JSON-LD | N3 | N-TRIPLE | RDF/{JSON | XML | XML-ABBREV} |
+            }
+    defaultFoxHeaders = {
+                "charset": "utf-8",
+                "Content-Type": "application/json"
             }
 
     def __init__(self, foxlight=NEROpenNLP):
@@ -53,17 +58,30 @@ class Fox(object):
         """
         payload = copy.copy(self.defaultFoxParams)
         payload['input'] = text
-        r = requests.post(self.foxOfficialApiUri, data=payload)
+        r = requests.post(self.foxOfficialApiUri, json=payload, headers=self.defaultFoxHeaders)
+        r.raise_for_status()
         try:
             resp = r.json()
         except ValueError as e:
             #server failed
-            resp = {'input': '', 'output': '', 'log': ''}
-        return (urllib.unquote(resp['input']),
-                urllib.unquote(resp['output']),
-                urllib.unquote(resp['log']))
+            resp = {}
+        return resp
 
-if __name__ == "__main__":
-    fox = Fox()
-    (text, output, log) = fox.recognizeText('Country Austria')
-    print output
+    def annotateEntities(self, text):
+        """
+            Input: text (string)
+                e.g. "Country Austria"
+            Output: annotated text (string)
+                e.g. "Country <entity>Austria</entity>"
+        """
+        json_ld = self.recognizeText(text)
+        nif_phrases = extractNifPhrases(json_ld)
+        if len(nif_phrases) < 1:
+            return text
+
+        nif_phrases = sorted(nif_phrases, key=lambda t: t["endIndex"], reverse=True)
+
+        for nif_phrase in nif_phrases:
+            text = insertCharacterAtPosition(text, "</entity>", int(nif_phrase["endIndex"]))
+            text = insertCharacterAtPosition(text, "<entity>", int(nif_phrase["beginIndex"]))
+        return text
