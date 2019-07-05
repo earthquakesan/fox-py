@@ -1,3 +1,6 @@
+.idea*
+.venv*
+
 MANIFEST
 dist/
 build/

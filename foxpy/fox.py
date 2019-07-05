@@ -1,9 +1,7 @@
 import copy
-import urllib.parse
-
 import requests
-
 from foxpy.utils import extractNifPhrases, insertCharacterAtPosition
+
 
 class Fox(object):
     foxOfficialNERUri = 'http://fox.cs.uni-paderborn.de:4444/call/ner/entities'
