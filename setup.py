@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='foxpy',
-    version='1.0.0',
+    version='1.0.1',
     author='Ivan Ermilov',
     author_email='earthquakesan@gmail.com',
     packages=['foxpy'],
